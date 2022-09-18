@@ -1,6 +1,7 @@
 <a class="btn btn-success btn-xs" href="{{ route('dispositions.show', $disposition->id) }}">
   <i class="fa fa-search-plus"></i> &nbsp; Detail
 </a>
+@if (Auth::user()->role->name == 'Ketua')
 <a class="btn btn-primary btn-xs" href="{{ route('dispositions.edit', $disposition->id) }}">
   <i class="fas fa-edit"></i> &nbsp; Ubah
 </a>
@@ -12,3 +13,4 @@
     <i class="far fa-trash-alt"></i> &nbsp; Hapus
   </button>
 </form>
+@endif

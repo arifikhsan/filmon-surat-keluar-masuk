@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enum\DispositionReasonEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Disposition;
 use App\Models\Letter;
@@ -56,6 +57,10 @@ class DispositionController extends Controller
 
   public function edit($id)
   {
+    if (auth()->user()->role->name !== 'Ketua') {
+      return redirect()->route('dispositions.index');
+    }
+
     $disposition = Disposition::with(['letter', 'createdByUser', 'addressedToUser'])->findOrFail($id);
     $addressedUsers = User::all()->except(Auth::id());
     $incomingLetters = Letter::where('letter_type', 'Surat Masuk')->get();
@@ -69,6 +74,10 @@ class DispositionController extends Controller
 
   public function update(Request $request, $id)
   {
+    if (auth()->user()->role->name !== 'Ketua') {
+      return redirect()->route('dispositions.index');
+    }
+
     $request->validate([
       'reason' => 'required',
       'description' => 'max:255',
@@ -83,6 +92,10 @@ class DispositionController extends Controller
 
   public function store(Request $request)
   {
+    if (auth()->user()->role->name !== 'Ketua') {
+      return redirect()->route('dispositions.index');
+    }
+
     $request->validate([
       'letter_id' => 'required',
       'addressed_to_user_id' => 'required',
@@ -99,6 +112,10 @@ class DispositionController extends Controller
 
   public function destroy($id)
   {
+    if (auth()->user()->role->name !== 'Ketua') {
+      return redirect()->route('dispositions.index');
+    }
+
     $disposition = Disposition::findOrFail($id);
     $disposition->delete();
 

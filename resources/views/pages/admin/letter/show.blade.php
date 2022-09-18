@@ -85,6 +85,7 @@ Detail Surat
           </div>
         </div>
       </div>
+      @if (Auth::user()->role->name == 'Ketua')
       <div class="col-lg-7">
         <div class="card mb-4">
           <div class="card-header">Disposisi Surat / Tindaklanjuti surat ini</div>
@@ -113,7 +114,7 @@ Detail Surat
               <div class="mb-3">
                 @foreach (\App\Enum\DispositionReasonEnum::cases() as $reason)
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="reason" value="{{ $reason->name }}"
+                  <input class="form-check-input" type="radio" name="reason" value="{{ $reason->value }}"
                     id="{{ $reason->name }}">
                   <label class="form-check-label" for="{{ $reason->name }}">
                     {{ $reason->value }}
@@ -142,6 +143,7 @@ Detail Surat
           </div>
         </div>
       </div>
+      @endif
     </div>
   </div>
 </main>
