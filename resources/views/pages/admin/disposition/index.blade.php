@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-Surat Masuk
+Disposisi
 @endsection
 
 @section('container')
@@ -13,7 +13,7 @@ Surat Masuk
           <div class="col-auto mb-3">
             <h1 class="page-header-title">
               <div class="page-header-icon"><i data-feather="user"></i></div>
-              Surat Masuk
+              Disposisi
             </h1>
           </div>
         </div>
@@ -26,11 +26,11 @@ Surat Masuk
       <div class="col-lg-12">
         <div class="card card-header-actions mb-4">
           <div class="card-header">
-            List Surat Masuk
-            <a class="btn btn-sm btn-primary" href="{{ route('print-surat-masuk') }}" target="_blank">
+            List Surat Disposisi
+            {{-- <a class="btn btn-sm btn-primary" href="{{ route('print-surat-masuk') }}" target="_blank">
               <i data-feather="printer"></i> &nbsp;
-              Cetak Laporan
-            </a>
+              Cetak Disposisi
+            </a> --}}
           </div>
           <div class="card-body">
             {{-- Alert --}}
@@ -56,9 +56,10 @@ Surat Masuk
                 <tr>
                   <th width="10">No.</th>
                   <th>No. Surat</th>
-                  <th>Tanggal</th>
-                  <th>Departemen</th>
-                  <th>Pengirim</th>
+                  <th>Alasan</th>
+                  <th>Dibuat oleh</th>
+                  <th>Ditujukan kepada</th>
+                  <th>Deskripsi</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
@@ -79,7 +80,7 @@ Surat Masuk
         serverSide: true,
         ordering: true,
         ajax: {
-          url: '{!! url()->current() !!}',
+          url: '{!! route('dispositions.data') !!}',
         },
         columns: [
           {
@@ -88,9 +89,10 @@ Surat Masuk
             searchable: false
           },
           { data: 'letter_no', name: 'letter_no' },
-          { data: 'letter_date', name: 'letter_date' },
-          { data: 'department.name', name: 'department.name' },
-          { data: 'sender.name', name: 'sender.name' },
+          { data: 'reason', name: 'reason' },
+          { data: 'created_by_user_name', name: 'created_by_user_name' },
+          { data: 'addressed_to_user_name', name: 'addressed_to_user_name' },
+          { data: 'description', name: 'description' },
           {
             data: 'action',
             name: 'action',

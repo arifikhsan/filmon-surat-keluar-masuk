@@ -87,29 +87,58 @@ Detail Surat
       </div>
       <div class="col-lg-7">
         <div class="card mb-4">
-          <div class="card-header">Disposisi Surat</div>
+          <div class="card-header">Disposisi Surat / Tindaklanjuti surat ini</div>
           <div class="card-body">
-            <div>
-              Tindaklanjuti surat ini
+            {{-- Alert --}}
+            @if (session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {{ session('success') }}
+              <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <div>
-                Pilih alasan:
-                <select name="reason" id="reason" class="form-control">
-                    <option value="0">Pilih Alasan</option>
-                    <option value="1">Segera</option>
-                    <option value="2">Biasa</option>
-                    <option value="3">Rahasia</option>
-                </select>
+            @endif
+            @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+              <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <div>
+            @endif
+
+            <form action="{{ route('dispositions.store') }}" method="post">
+              @csrf
+              Pilih alasan:
+              <div class="mb-3">
+                @foreach (\App\Enum\DispositionReasonEnum::cases() as $reason)
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="reason" value="{{ $reason->name }}"
+                    id="{{ $reason->name }}">
+                  <label class="form-check-label" for="{{ $reason->name }}">
+                    {{ $reason->value }}
+                  </label>
+                </div>
+                @endforeach
+              </div>
+              <div class="mb-3">
                 Pilih tujuan:
-                <select name="destination" id="destination" class="form-control">
-                    <option value="0">Pilih Tujuan</option>
-                    @foreach ($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                    @endforeach
+                <select name="addressed_to_user_id" class="form-select">
+                  <option selected>Pilih Tujuan</option>
+                  @foreach ($users as $user)
+                  <option value="{{ $user->id }}">{{ $user->name }}</option>
+                  @endforeach
                 </select>
-            </div>
+              </div>
+              <div class="mb-3">
+                <label for="description" class="form-label">Deskripsi</label>
+                <textarea name="description" class="form-control" id="description" rows="3"></textarea>
+              </div>
+              <input type="hidden" name="letter_id" value="{{$item->id}}" />
+              <div>
+                <button type="submit" class="btn btn-primary">Buat disposisi</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

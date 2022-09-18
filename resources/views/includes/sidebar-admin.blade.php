@@ -29,7 +29,7 @@
                 <div class="nav-link-icon"><i data-feather="home"></i></div>
                 Data Departemen
             </a>
-            <a class="nav-link {{ (request()->is('admin/department*')) ? 'active' : '' }}" href="{{ route('department.index') }}">
+            <a class="nav-link {{ (request()->is('admin/disposition*')) ? 'active' : '' }}" href="{{ route('dispositions.index') }}">
                 <div class="nav-link-icon"><i data-feather="home"></i></div>
                 Disposisi
             </a>

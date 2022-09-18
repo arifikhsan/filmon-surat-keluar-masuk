@@ -132,7 +132,7 @@ class LetterController extends Controller
     public function show($id)
     {
         $item = Letter::with(['department','sender'])->findOrFail($id);
-        $users = User::all();
+        $users = User::all()->except(auth()->user()->id);
 
         return view('pages.admin.letter.show',[
             'item' => $item,
