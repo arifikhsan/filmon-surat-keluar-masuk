@@ -142,7 +142,7 @@ Tambah Surat
                 <label for="letter_file" class="col-sm-3 col-form-label">File</label>
                 <div class="col-sm-9">
                   <input type="file" class="form-control @error('letter_file') is-invalid @enderror"
-                    value="{{ old('letter_file') }}" name="letter_file" required>
+                    value="{{ old('letter_file') }}" name="letter_file" required accept="application/pdf">
                   <div id="letter_file" class="form-text">Ekstensi .pdf</div>
                 </div>
                 @error('letter_file')
