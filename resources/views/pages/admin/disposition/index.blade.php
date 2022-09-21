@@ -59,7 +59,7 @@ Disposisi
                   <th>Alasan</th>
                   <th>Dibuat oleh</th>
                   <th>Ditujukan kepada</th>
-                  <th>Deskripsi</th>
+                  {{-- <th>Deskripsi</th> --}}
                   <th>Aksi</th>
                 </tr>
               </thead>
@@ -92,7 +92,7 @@ Disposisi
           { data: 'reason', name: 'reason' },
           { data: 'created_by_user_name', name: 'created_by_user_name' },
           { data: 'addressed_to_user_name', name: 'addressed_to_user_name' },
-          { data: 'description', name: 'description' },
+          // { data: 'description', name: 'description' },
           {
             data: 'action',
             name: 'action',

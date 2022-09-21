@@ -16,4 +16,5 @@ enum DispositionReasonEnum: string
     case SegeraSelesaikan = 'segera selesaikan';
     case CopyUntuk = 'copy untuk …';
     case Arsip = 'arsip';
+    case Lainnya = 'lainnya';
 }

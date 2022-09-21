@@ -19,7 +19,7 @@ class CreateDispositionsTable extends Migration
             $table->unsignedBigInteger('created_by_user_id');
             $table->unsignedBigInteger('addressed_to_user_id');
             $table->foreignId('letter_id')->constrained();
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
 
             $table->foreign('created_by_user_id')->references('id')->on('users');
