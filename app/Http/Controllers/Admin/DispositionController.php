@@ -15,14 +15,16 @@ class DispositionController extends Controller
 {
   public function index()
   {
+    $dispositions = $this->addressedToUserDispositions();
     return view('pages.admin.disposition.index', [
-      'dispositions' => Disposition::with(['letter', 'createdByUser', 'addressedToUser'])->get(),
+      'dispositions' => $dispositions,
     ]);
   }
 
   public function data()
   {
-    $dispositions = Disposition::with(['letter', 'createdByUser', 'addressedToUser'])->get();
+    $dispositions = $this->addressedToUserDispositions();
+
     return DataTables::of($dispositions)
       ->addColumn('letter_no', function ($disposition) {
         return $disposition->letter->letter_no;
@@ -120,5 +122,13 @@ class DispositionController extends Controller
     $disposition->delete();
 
     return back()->with('success', 'Berhasil menghapus disposisi');
+  }
+
+  private function addressedToUserDispositions()
+  {
+    return Disposition::where('addressed_to_user_id', Auth::user()->id)
+      ->orWhere('created_by_user_id', Auth::user()->id)
+      ->with(['letter', 'createdByUser', 'addressedToUser'])
+      ->get();
   }
 }

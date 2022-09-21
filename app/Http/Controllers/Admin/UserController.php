@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Rules\MatchOldPassword;
@@ -58,7 +59,8 @@ class UserController extends Controller
 
   public function create()
   {
-    return view('pages.admin.user.create');
+    $roles = Role::all();
+    return view('pages.admin.user.create', ['roles' => $roles]);
   }
 
   public function store(Request $request)
@@ -67,6 +69,7 @@ class UserController extends Controller
       'name' => 'required|max:255',
       'email' => 'required|email:dns|unique:users',
       'password' => 'required|min:5|max:255',
+      'role_id' => 'required|exists:roles,id',
     ]);
 
     $validatedData['password'] = Hash::make($validatedData['password']);
@@ -95,10 +98,12 @@ class UserController extends Controller
 
   public function edit($id)
   {
-    $item = User::findOrFail($id);
+    $user = User::findOrFail($id);
+    $roles = Role::all();
 
     return view('pages.admin.user.edit', [
-      'item' => $item
+      'user' => $user,
+      'roles' => $roles
     ]);
   }
 
@@ -107,6 +112,7 @@ class UserController extends Controller
     $validatedData = $request->validate([
       'name' => 'required|max:255',
       'email' => 'required|email:dns',
+      'role_id' => 'required|exists:roles,id',
     ]);
 
     $item = User::findOrFail($id);

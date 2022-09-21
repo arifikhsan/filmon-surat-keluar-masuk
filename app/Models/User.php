@@ -47,4 +47,16 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function isAkademik() {
+        return $this->role->name == 'Akademik';
+    }
+
+    public function isKetua() {
+        return $this->role->name == 'Ketua';
+    }
+
+    public function isStaff() {
+        return $this->role->name == 'Staff';
+    }
 }

@@ -33,6 +33,7 @@ class LetterController extends Controller
 
   public function store(Request $request)
   {
+    // dd($request->all());
     $validatedData = $request->validate([
       'letter_no' => 'required',
       'letter_date' => 'required',
@@ -45,7 +46,9 @@ class LetterController extends Controller
     ]);
 
     if ($request->file('letter_file')) {
-      $validatedData['letter_file'] = $request->file('letter_file')->store('assets/letter-file');
+      $file = $request->file('letter_file');
+      $newFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '-' . time() . '.' . $file->extension();
+      $validatedData['letter_file'] = $file->storeAs('assets/letter-file', $newFileName);
     }
 
     if ($validatedData['letter_type'] == 'Surat Masuk') {
@@ -177,7 +180,13 @@ class LetterController extends Controller
     $item = Letter::findOrFail($id);
 
     if ($request->file('letter_file')) {
-      $validatedData['letter_file'] = $request->file('letter_file')->store('assets/letter-file');
+      // delete old file
+      Storage::delete($item->letter_file);
+
+      // upload new file
+      $file = $request->file('letter_file');
+      $newFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '-' . time() . '.' . $file->extension();
+      $validatedData['letter_file'] = $file->storeAs('assets/letter-file', $newFileName);
     }
 
     if ($validatedData['letter_type'] == 'Surat Masuk') {

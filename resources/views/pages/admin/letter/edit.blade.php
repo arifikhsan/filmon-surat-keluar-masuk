@@ -117,7 +117,7 @@ Ubah Surat
                   <select name="department_id" class="form-control selectx" required>
                     <option value="">Pilih..</option>
                     @foreach ($departments as $department)
-                    <option value="{{ $department->id }}" {{ ($item->department_id == $department->id)? 'selected':'';
+                    <option value="{{ $department->id }}" {{ ($item->department_id == $department->id) ? 'selected':'';
                       }}>{{ $department->name }}</option>
                     @endforeach
                   </select>

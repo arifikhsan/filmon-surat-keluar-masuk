@@ -85,7 +85,7 @@ Detail Surat
           </div>
         </div>
       </div>
-      @if (Auth::user()->role->name == 'Ketua')
+      @if (Auth::user()->isKetua() && $item->letter_type == 'Surat Masuk')
       <div class="col-lg-7">
         <div class="card mb-4">
           <div class="card-header">Disposisi Surat / Tindaklanjuti surat ini</div>
