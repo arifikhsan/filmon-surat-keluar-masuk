@@ -8,7 +8,7 @@
     <!-- * * * * * * When using an image, we recommend the SVG format.-->
     <!-- * * * * * * Dimensions: Maximum height: 32px, maximum width: 240px-->
     <a class="navbar-brand pe-3 ps-4 ps-lg-2" href="{{ route('admin-dashboard') }}">
-      <img src='/admin/assets/img/logo-sttm.png' style="width: 32px; height: 32px; border-radius: 4px" />
+      <img src='/admin/assets/img/logo-sttm.jpg' style="width: 32px; height: 32px; border-radius: 4px; margin-bottom: 4px;" />
       <span style="margin-left: 4px">Manajemen Surat</span>
     </a>
     <!-- Navbar Search Input-->
